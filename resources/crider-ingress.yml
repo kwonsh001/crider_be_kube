@@ -1,0 +1,39 @@
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: crider-ingress
+#   annotations:
+#     kubernetes.io/ingress.class: nginx
+#     nginx.ingress.kubernetes.io/rewrite-target: /$2 #중요
+#     nginx.ingress.kubernetes.io/use-regex: 'true'
+# spec:
+#   rules:
+#   - http:
+#       paths:
+#         - path: /api/v1/crider(/|$)(.*) #중요
+#           backend:
+#             service:
+#               name: crider-service
+#               port:
+#                 number: 8080
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: crider-ingress #인그레스명
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    # kubernetes.io/ingress.class: nginx (spring boot 용)
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: localhost:80 #호스트
+    http:
+      paths:
+      - path: / #호스트 하위 경로
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: crider-service #라우팅 할 서비스 이름
+            port:
+              number: 80 #라우팅 할 서버 포트

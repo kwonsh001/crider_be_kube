@@ -1,0 +1,3 @@
+resources:
+- crider-deployment.yaml
+- crider-service.yaml
