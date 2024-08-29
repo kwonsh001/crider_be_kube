@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
 - crider-deployment.yml
 - crider-service.yml
+
