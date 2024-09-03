@@ -7,7 +7,7 @@ metadata:
   name: crider-service
 spec:
   selector:
-    app: nginx-main #디플로이, 서비스 패키지의 식별값 (유지보수 용)
+    app: nginx #디플로이, 서비스 패키지의 식별값 (유지보수 용)
   ports:
     - protocol: TCP #프로토콜 # spring boot 는 안적어도 됨
       port: 80 #외부 포트

@@ -5,18 +5,18 @@ metadata:
   labels:
     app: nginx
 spec:
-  replicas: 2 #복제 레플리카셋 수
+  replicas: 1 #복제 레플리카셋 수
   selector:
     matchLabels:
-      app: nginx-main
+      app: nginx
   template:
     metadata:
       labels:
-        app: nginx-main #디플로이, 서비스 패키지의 식별값 (유지보수 용)
+        app: nginx #디플로이, 서비스 패키지의 식별값 (유지보수 용)
     spec:
       containers:
-      - image: nginx #도커허브 이미지명
-        name: nginx #컨테이너의 이름
+      - name: nginx #도커허브 이미지명
+        image: nginx:latest #컨테이너의 이름
           # - containerPort: 80 #파드의 포트
         # env:
         #   - name: #환경변수 명
