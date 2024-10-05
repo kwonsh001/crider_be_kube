@@ -20,20 +20,21 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-resource-backend
+  name: my-ingress
   annotations:
-    kubernetes.io/ingress.class: alb # ALB를 사용할 경우 이 어노테이션 추가
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing # or internal if you want it to be internal
 spec:
   rules:
-    http:
-      paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: crider-service # 기본 서비스 이름으로 변경
-              port:
-                number: 8000 # 기본 서비스가 노출하는 포트 번호
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: crider-service
+                port:
+                  number: 8000
 
 ---
 apiVersion: v1
