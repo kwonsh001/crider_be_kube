@@ -1,24 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: crider-deployment
-  labels:
-    app: nginx
+apiVersion: v1
+kind: Service
+metadata:
+  name: crider-service
+  namespace: default
 spec:
-  replicas: 1 #복제 레플리카셋 수
+  selector:
+    app: crider-backend
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crider-deployment
+  namespace: default
+spec:
+  replicas: 2
   selector:
     matchLabels:
-      app: nginx
+      app: crider-backend
   template:
     metadata:
       labels:
-        app: nginx #디플로이, 서비스 패키지의 식별값 (유지보수 용)
+        app: crider-backend
     spec:
       containers:
-      - name: nginx #도커허브 이미지명
-        image: nginx:latest #컨테이너의 이름
-          # - containerPort: 80 #파드의 포트
-        # env:
-        #   - name: #환경변수 명
-        #     value: #환경변수 값
-        #   # 환경변수가 더 필요할 경우 아래에 같은 방식으로 적어주면 된다.
+        - name: crider-backend
+          image: 795149720653.dkr.ecr.ap-northeast-2.amazonaws.com/aws-ecr-development-crider-service:latest
+          ports:
+            - containerPort: 8000
