@@ -1,22 +1,3 @@
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: my-ingress
-#   namespace: default
-#   annotations:
-#     kubernetes.io/ingress.class: alb
-#     alb.ingress.kubernetes.io/scheme: internet-facing # or internal if you want it to be internal
-# spec:
-#   rules:
-#     - http:
-#         paths:
-#           - path: / # Define your path here
-#             pathType: Prefix
-#             backend:
-#               service:
-#                 name: crider-service
-#                 port:
-#                   number: 8000
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -55,7 +36,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: crider-deployment # 여기 metadata.name 필드를 추가
+  name: crider-deployment
   namespace: default
 spec:
   replicas: 2
